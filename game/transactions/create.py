@@ -13,7 +13,7 @@ import pandas as pd
 import random
 from datetime import datetime, timedelta
 
-def simulate_transactions(activations_file, transactions_file):
+def create_transactions(activations_file, transactions_file):
     # Read activations CSV file into a Pandas DataFrame
     activations_df = pd.read_csv(activations_file)
 
