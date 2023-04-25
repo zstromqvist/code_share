@@ -7,7 +7,6 @@ from models.activation import new_activation
 from activations.create import generate_random_timestamp
 
 
-
 def create_transactions(activations_file, transactions_file):
     # Read activations CSV file into a Pandas DataFrame
     activations_df = pd.read_csv(activations_file)

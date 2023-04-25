@@ -1,5 +1,6 @@
 import pandas as pd
 import random
+import os
 from datetime import datetime, timedelta
 from models.activation import new_activation
 
@@ -12,6 +13,23 @@ def generate_random_timestamp():
     minute = str(random.randint(0, 59)).zfill(2)
     second = str(random.randint(0, 59)).zfill(2)
     return f"{hour}:{minute}:{second}"
+
+def merge_activation_csvs(input_folder, output_file):
+    # Initialize an empty DataFrame to store the merged activations
+    merged_activations = pd.DataFrame()
+
+    # Loop over all CSV files in the specified input folder
+    for filename in os.listdir(input_folder):
+        if filename.endswith('.csv'):
+            # Load the CSV file into a DataFrame
+            activations = pd.read_csv(os.path.join(input_folder, filename))
+
+            # Append the activations to the merged DataFrame
+            merged_activations = merged_activations.append(activations)
+
+    # Write the merged DataFrame to a new CSV file
+    merged_activations.to_csv(output_file, index=False)
+
 
 
 def create_activations(n, write_to_csv=False, file_name=None):
