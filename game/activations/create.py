@@ -1,14 +1,18 @@
 import pandas as pd
 import random
 from datetime import datetime, timedelta
+from models.activation import new_activation
 
-class new_activation:
-    def __init__(self, activation_date, id, state, county, type):
-        self.activation_date = activation_date
-        self.id = id
-        self.state = state
-        self.county = county
-        self.type = type
+
+def generate_random_timestamp():
+    """
+    Returns a random timestamp during the day on the format hh:mm:ss
+    """
+    hour = str(random.randint(0, 23)).zfill(2)
+    minute = str(random.randint(0, 59)).zfill(2)
+    second = str(random.randint(0, 59)).zfill(2)
+    return f"{hour}:{minute}:{second}"
+
 
 def create_activations(n, write_to_csv=False, file_name=None):
     activations = []
