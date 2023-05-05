@@ -1,0 +1,30 @@
+import os
+
+# Define the source directory and file name
+base_dir = "base"
+source_file = os.path.join(base_dir, "base.sql")
+
+# Loop through the subdirectories in the base directory
+for sub_dir in os.listdir(base_dir):
+    # Check if the subdirectory is a directory (not a file)
+    if os.path.isdir(os.path.join(base_dir, sub_dir)):
+        # Define the destination directory and file name with an underscore and the folder name added to the file name
+        dest_dir = os.path.join(base_dir, sub_dir)
+        dest_file = os.path.join(dest_dir, sub_dir + "_" + os.path.basename(source_file))
+        
+        # Open the source file and read its contents
+        with open(source_file, "r") as f:
+            file_contents = f.readlines()
+
+        # Check if the destination file exists
+        if os.path.isfile(dest_file):
+            # If it does, open the file and read the existing contents
+            with open(dest_file, "r") as f:
+                dest_contents = f.readlines()
+            # Write the source file contents starting from row 5 to the destination file
+            with open(dest_file, "w") as f:
+                f.writelines(dest_contents[:4] + file_contents[4:])
+        else:
+            # If the destination file doesn't exist, create it and write the source file contents
+            with open(dest_file, "w") as f:
+                f.writelines(file_contents[:4] + [f"-- {os.path.basename(dest_file)}\n"] + file_contents[4:])
